@@ -21,96 +21,95 @@
     html[data-theme='dark'] .bg-blue-700 {
       background-color: #1d4ed8;
     }
-      @keyframes pop {
-    0%, 100% {
-      transform: scale(1);
-      opacity: 0.8;
-    }
-    50% {
-      transform: scale(1.15);
-      opacity: 1;
-    }
-  }
 
-  @keyframes bounce-slow {
-    0%, 100% {
-      transform: translateY(0);
+    @keyframes pop {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
     }
-    50% {
-      transform: translateY(-10px);
+
+    @keyframes bounce-slow {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
     }
-  }
 
-  .animate-pop {
-    animation: pop 1.5s infinite;
-  }
+    .animate-pop {
+      animation: pop 1.5s infinite;
+    }
 
-  .animate-bounce-slow {
-    animation: bounce-slow 1.8s infinite;
-  }
-
- 
+    .animate-bounce-slow {
+      animation: bounce-slow 1.8s infinite;
+    }
   </style>
 </head>
 <body class="font-sans text-blue-900">
 
- 
+  <!-- Theme Toggle Button -->
   <div class="fixed top-4 right-4 z-50">
     <button id="themeToggle" class="bg-gray-300 dark:bg-gray-700 text-sm px-3 py-1 rounded shadow hover:shadow-lg transition">
       Toggle Mode 🌙
     </button>
   </div>
 
-  <div class="flex min-h-screen">
-
-<aside class="w-64 bg-white shadow-lg p-6 hidden md:block">
-  <div class="flex flex-col items-center space-y-2 mb-4">
-  
-    <div class="bg-blue-50 p-2 rounded-full shadow-inner">
-      <img src="image/LOGO - Copy.jpeg" alt="COBEM Logo" class="h-24 w-24 animate-bounce-slow rounded-full shadow-lg ring-4 ring-blue-500 ring-opacity-30">
-    </div>
-
-    <span class="text-xl font-bold text-center bg-gradient-to-r from-blue-700 to-blue-400 bg-clip-text text-transparent">COBEM</span>
-
-   
-    <span class="font-semibold text-blue-900 text-sm text-center mt-1">Welcome, <span id="userNameDisplay">User</span> 👋</span>
+  <!-- Mobile Header (Hamburger) -->
+  <div class="md:hidden flex items-center justify-between px-4 py-3 bg-white shadow fixed top-0 left-0 w-full z-50">
+    <span class="text-xl font-bold">COBEM LOGISTICS</span>
+    <button id="menu-toggle" class="text-3xl focus:outline-none">&#9776;</button>
   </div>
 
+  <!-- Main layout -->
+  <div class="flex pt-16 md:pt-0 min-h-screen">
 
-      <nav class="space-y-4">
-         <a href="profile.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+    <!-- Sidebar (slides on mobile, static on desktop) -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white shadow transform -translate-x-full md:translate-x-0 md:static transition-transform duration-300 z-40 pt-16 md:pt-0">
+      <div class="flex flex-col items-center space-y-2 p-4 border-b">
+        <div class="bg-blue-50 p-2 rounded-full shadow-inner">
+          <img src="image/LOGO - Copy.jpeg" alt="COBEM Logo" class="h-24 w-24 animate-bounce-slow rounded-full shadow-lg ring-4 ring-blue-500 ring-opacity-30">
+        </div>
+        <span class="text-xl font-bold bg-gradient-to-r from-blue-700 to-blue-400 bg-clip-text text-transparent">COBEM</span>
+        <span class="font-semibold text-blue-900 text-sm text-center mt-1">Welcome, <span id="userNameDisplay">User</span> 👋</span>
+      </div>
+      <nav class="space-y-4 p-4">
+        <a href="profile.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-user-circle"></i><span>Profile</span></a>
         <a href="book-cab.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-taxi"></i><span>Book Cab</span></a>
         <a href="interstate.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-bus"></i><span>Travel Home</span></a>
         <a href="courier.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-box"></i><span>Courier</span></a>
         <a href="storage.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-suitcase"></i><span>Storage</span></a>
         <a href="subscription.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-calendar-check"></i><span>Subscription</span></a>
         <a href="history.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-clock-rotate-left"></i><span>History</span></a>
-         <a href="help.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-question-circle"></i><span>Help</span></a>
+        <a href="help.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-question-circle"></i><span>Help</span></a>
         <a href="#support" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-headset"></i><span>Support</span></a>
       </nav>
     </aside>
 
-  
+    <!-- Main Content -->
     <main class="flex-1 p-6 space-y-6">
       <header class="mb-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Welcome to COBEM Logistics Dashboard</h1>
         <a href="index.html" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800">Go to Homepage</a>
       </header>
- <section id="cab-status" class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
+
+      <section id="cab-status" class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
         <div>
           <h2 class="text-xl font-semibold mb-1"> Campus Cab Status</h2>
           <p class="text-lg">
             Seats Occupied: 
-            <span id="occupiedCount" class="font-bold">0</span>
-            /
+            <span id="occupiedCount" class="font-bold">0</span> /
             <span id="totalSeats" class="font-bold">5</span>
           </p>
         </div>
-        <div id="statusIndicator" class="px-4 py-2 rounded-full text-white font-semibold">
-        
-        </div>
+        <div id="statusIndicator" class="px-4 py-2 rounded-full text-white font-semibold"></div>
       </section>
-   
+
       <section id="cab" class="bg-white p-6 rounded-lg shadow">
         <h2 class="text-xl font-semibold mb-2">🚕 Campus Cab Booking</h2>
         <p class="mb-4">₦150 per seat or ₦750 for a full cab (5 passengers max).</p>
@@ -146,44 +145,23 @@
         <p class="mb-4">Reach out to our team via WhatsApp or call for urgent support.</p>
         <a href="https://wa.me/2348124423758" target="_blank" class="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700"><i class="fab fa-whatsapp mr-2"></i>Chat on WhatsApp</a>
       </section>
-
     </main>
   </div>
 
-  
+  <!-- Footer -->
   <footer class="text-center text-sm py-4 mt-6 text-white bg-blue-700">
     &copy; 2025 COBEM LOGISTICS. All rights reserved.
   </footer>
 
+  <!-- Scripts -->
   <script>
-     const MAX_SEATS = 5;
-    const occupiedEl = document.getElementById('occupiedCount');
-    const statusEl   = document.getElementById('statusIndicator');
+    // Sidebar toggle for mobile
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('-translate-x-full');
+    });
 
-    function refreshCabStatus() {
-      let occupied = parseInt(localStorage.getItem('cabOccupancy')) || 0;
-      if (occupied > MAX_SEATS) occupied = MAX_SEATS;
-      occupiedEl.textContent = occupied;
-     
-      if (occupied >= MAX_SEATS) {
-        statusEl.textContent = 'Full';
-        statusEl.className = 'bg-red-600 px-4 py-2 rounded-full text-white font-semibold';
-      } else {
-        statusEl.textContent = `${MAX_SEATS - occupied} seats available`;
-        statusEl.className = 'bg-green-600 px-4 py-2 rounded-full text-white font-semibold';
-      }
-    }
-   
-    refreshCabStatus();
-
-  
-    window.incrementCabOccupancy = function() {
-      let occupied = parseInt(localStorage.getItem('cabOccupancy')) || 0;
-      if (occupied < MAX_SEATS) {
-        localStorage.setItem('cabOccupancy', occupied + 1);
-        refreshCabStatus();
-      }
-    };
+    // Theme toggle
     const toggleBtn = document.getElementById('themeToggle');
     toggleBtn.addEventListener('click', () => {
       const html = document.documentElement;
@@ -192,16 +170,43 @@
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
     });
-    
+
     const saved = localStorage.getItem('theme');
     if (saved) document.documentElement.setAttribute('data-theme', saved);
-    
-  const savedUsername = localStorage.getItem('username') || 'User';
-  document.getElementById('userNameDisplay').textContent = savedUsername;
 
- 
+    // Cab occupancy
+    const MAX_SEATS = 5;
+    const occupiedEl = document.getElementById('occupiedCount');
+    const statusEl = document.getElementById('statusIndicator');
 
+    function refreshCabStatus() {
+      let occupied = parseInt(localStorage.getItem('cabOccupancy')) || 0;
+      if (occupied > MAX_SEATS) occupied = MAX_SEATS;
+      occupiedEl.textContent = occupied;
 
+      if (occupied >= MAX_SEATS) {
+        statusEl.textContent = 'Full';
+        statusEl.className = 'bg-red-600 px-4 py-2 rounded-full text-white font-semibold';
+      } else {
+        statusEl.textContent = `${MAX_SEATS - occupied} seats available`;
+        statusEl.className = 'bg-green-600 px-4 py-2 rounded-full text-white font-semibold';
+      }
+    }
+
+    refreshCabStatus();
+
+    window.incrementCabOccupancy = function() {
+      let occupied = parseInt(localStorage.getItem('cabOccupancy')) || 0;
+      if (occupied < MAX_SEATS) {
+        localStorage.setItem('cabOccupancy', occupied + 1);
+        refreshCabStatus();
+      }
+    };
+
+    // Load username
+    const savedUsername = localStorage.getItem('username') || 'User';
+    document.getElementById('userNameDisplay').textContent = savedUsername;
   </script>
 </body>
 </html>
+
