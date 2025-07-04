@@ -21,31 +21,17 @@
     html[data-theme='dark'] .bg-blue-700 {
       background-color: #1d4ed8;
     }
-
     @keyframes pop {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 0.8;
-      }
-      50% {
-        transform: scale(1.15);
-        opacity: 1;
-      }
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 1; }
     }
-
     @keyframes bounce-slow {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
-
     .animate-pop {
       animation: pop 1.5s infinite;
     }
-
     .animate-bounce-slow {
       animation: bounce-slow 1.8s infinite;
     }
@@ -53,32 +39,34 @@
 </head>
 <body class="font-sans text-blue-900">
 
-  <!-- Theme Toggle Button -->
-  <div class="fixed top-4 right-4 z-50">
-    <button id="themeToggle" class="bg-gray-300 dark:bg-gray-700 text-sm px-3 py-1 rounded shadow hover:shadow-lg transition">
+  <!-- Mobile Header -->
+  <div class="md:hidden flex items-center justify-between px-4 py-3 bg-white shadow fixed top-0 left-0 w-full z-50">
+    <span class="text-lg font-bold">COBEM LOGISTICS</span>
+    <div class="flex items-center space-x-4">
+      <button id="themeToggle" class="text-xs bg-gray-200 px-2 py-1 rounded shadow dark:bg-gray-700">🌙</button>
+      <button id="menu-toggle" class="text-2xl">&#9776;</button>
+    </div>
+  </div>
+
+  <!-- Desktop Theme Toggle -->
+  <div class="hidden md:block fixed top-4 right-4 z-50">
+    <button id="themeToggleDesktop" class="bg-gray-300 dark:bg-gray-700 text-sm px-3 py-1 rounded shadow hover:shadow-lg transition">
       Toggle Mode 🌙
     </button>
   </div>
 
-  <!-- Mobile Header (Hamburger) -->
-  <div class="md:hidden flex items-center justify-between px-4 py-3 bg-white shadow fixed top-0 left-0 w-full z-50">
-    <span class="text-xl font-bold">COBEM LOGISTICS</span>
-    <button id="menu-toggle" class="text-3xl focus:outline-none">&#9776;</button>
-  </div>
-
-  <!-- Main layout -->
   <div class="flex pt-16 md:pt-0 min-h-screen">
 
-    <!-- Sidebar (slides on mobile, static on desktop) -->
+    <!-- Sidebar -->
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white shadow transform -translate-x-full md:translate-x-0 md:static transition-transform duration-300 z-40 pt-16 md:pt-0">
       <div class="flex flex-col items-center space-y-2 p-4 border-b">
         <div class="bg-blue-50 p-2 rounded-full shadow-inner">
-          <img src="image/LOGO - Copy.jpeg" alt="COBEM Logo" class="h-24 w-24 animate-bounce-slow rounded-full shadow-lg ring-4 ring-blue-500 ring-opacity-30">
+          <img src="image/LOGO - Copy.jpeg" alt="COBEM Logo" class="h-20 w-20 animate-bounce-slow rounded-full shadow-lg ring-4 ring-blue-500 ring-opacity-30">
         </div>
-        <span class="text-xl font-bold bg-gradient-to-r from-blue-700 to-blue-400 bg-clip-text text-transparent">COBEM</span>
-        <span class="font-semibold text-blue-900 text-sm text-center mt-1">Welcome, <span id="userNameDisplay">User</span> 👋</span>
+        <span class="text-lg font-bold bg-gradient-to-r from-blue-700 to-blue-400 bg-clip-text text-transparent">COBEM</span>
+        <span class="font-semibold text-blue-900 text-sm text-center mt-1">Hi, <span id="userNameDisplay">User</span> 👋</span>
       </div>
-      <nav class="space-y-4 p-4">
+      <nav class="space-y-4 p-4 text-sm">
         <a href="profile.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-user-circle"></i><span>Profile</span></a>
         <a href="book-cab.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-taxi"></i><span>Book Cab</span></a>
         <a href="interstate.html" class="flex items-center space-x-2 hover:text-blue-700"><i class="fas fa-bus"></i><span>Travel Home</span></a>
@@ -92,58 +80,52 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 space-y-6">
-      <header class="mb-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold">Welcome to COBEM Logistics Dashboard</h1>
-        <a href="index.html" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800">Go to Homepage</a>
+    <main class="flex-1 p-4 md:p-6 space-y-6 text-sm md:text-base">
+      <header class="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <h1 class="text-xl md:text-2xl font-bold">Welcome to COBEM Dashboard</h1>
+        <a href="index.html" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 text-sm">🏠 Homepage</a>
       </header>
 
-      <section id="cab-status" class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
-        <div>
-          <h2 class="text-xl font-semibold mb-1"> Campus Cab Status</h2>
-          <p class="text-lg">
-            Seats Occupied: 
-            <span id="occupiedCount" class="font-bold">0</span> /
-            <span id="totalSeats" class="font-bold">5</span>
-          </p>
-        </div>
-        <div id="statusIndicator" class="px-4 py-2 rounded-full text-white font-semibold"></div>
+      <section class="bg-white p-4 md:p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-1">Campus Cab Status</h2>
+        <p>Seats Occupied: <span id="occupiedCount" class="font-bold">0</span> / <span id="totalSeats" class="font-bold">5</span></p>
+        <div id="statusIndicator" class="mt-2 px-4 py-2 rounded-full text-white font-semibold w-fit"></div>
       </section>
 
-      <section id="cab" class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-2">🚕 Campus Cab Booking</h2>
-        <p class="mb-4">₦150 per seat or ₦750 for a full cab (5 passengers max).</p>
-        <a href="book-cab.html" class="inline-block bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-800"><i class="fas fa-arrow-right mr-2"></i>Book a Ride</a>
+      <section class="bg-white p-4 md:p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-2">🚕 Book Campus Cab</h2>
+        <p class="mb-2">₦150 per seat / ₦750 full cab (5 max)</p>
+        <a href="book-cab.html" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 text-sm inline-block"><i class="fas fa-arrow-right mr-1"></i> Book a Ride</a>
       </section>
 
-      <section id="interstate" class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-2">🚌 Travel Back Home</h2>
-        <p class="mb-4">Select destination state, see price, and schedule your trip.</p>
-        <a href="interstate.html" class="inline-block bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-800"><i class="fas fa-map-marker-alt mr-2"></i>Plan Trip</a>
+      <section class="bg-white p-4 md:p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-2">🚌 Travel Back Home</h2>
+        <p class="mb-2">Choose your state, check prices & book.</p>
+        <a href="interstate.html" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 text-sm inline-block"><i class="fas fa-map-marker-alt mr-1"></i> Plan Trip</a>
       </section>
 
-      <section id="courier" class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-2">📦 Courier Services</h2>
-        <p class="mb-4">Deliver packages within campus or to cities like Lagos, Abuja, etc.</p>
-        <a href="courier.html" class="inline-block bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-800"><i class="fas fa-truck-loading mr-2"></i>Request Courier</a>
+      <section class="bg-white p-4 md:p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-2">📦 Courier Services</h2>
+        <p class="mb-2">Deliver to Lagos, Abuja, Auchi, and more.</p>
+        <a href="courier.html" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 text-sm inline-block"><i class="fas fa-truck-loading mr-1"></i> Request Courier</a>
       </section>
 
-      <section id="storage" class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-2">🧳 Luggage Storage</h2>
-        <p class="mb-4">Secure storage available during breaks/holidays at affordable rates.</p>
-        <a href="storage.html" class="inline-block bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-800"><i class="fas fa-lock mr-2"></i>Store Luggage</a>
+      <section class="bg-white p-4 md:p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-2">🧳 Luggage Storage</h2>
+        <p class="mb-2">Safe student storage over breaks.</p>
+        <a href="storage.html" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 text-sm inline-block"><i class="fas fa-lock mr-1"></i> Store Luggage</a>
       </section>
 
-      <section id="subscription" class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-2">📅 School Run Subscription</h2>
-        <p class="mb-4">Weekly (₦700) / Monthly (₦3700) plans for easy daily transport.</p>
-        <a href="subscription.html" class="inline-block bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-800"><i class="fas fa-credit-card mr-2"></i>Subscribe</a>
+      <section class="bg-white p-4 md:p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-2">📅 School Run Subscription</h2>
+        <p class="mb-2">₦700/week or ₦3700/month for daily rides.</p>
+        <a href="subscription.html" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 text-sm inline-block"><i class="fas fa-credit-card mr-1"></i> Subscribe</a>
       </section>
 
-      <section id="support" class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-2">💬 Need Help?</h2>
-        <p class="mb-4">Reach out to our team via WhatsApp or call for urgent support.</p>
-        <a href="https://wa.me/2348124423758" target="_blank" class="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700"><i class="fab fa-whatsapp mr-2"></i>Chat on WhatsApp</a>
+      <section id="support" class="bg-white p-4 md:p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-2">💬 Support</h2>
+        <p class="mb-2">Contact us for help anytime.</p>
+        <a href="https://wa.me/2348124423758" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm inline-block"><i class="fab fa-whatsapp mr-1"></i> WhatsApp Support</a>
       </section>
     </main>
   </div>
@@ -153,26 +135,27 @@
     &copy; 2025 COBEM LOGISTICS. All rights reserved.
   </footer>
 
-  <!-- Scripts -->
+  <!-- JS -->
   <script>
-    // Sidebar toggle for mobile
+    // Toggle sidebar
     document.getElementById('menu-toggle').addEventListener('click', () => {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('-translate-x-full');
+      document.getElementById('sidebar').classList.toggle('-translate-x-full');
     });
 
-    // Theme toggle
-    const toggleBtn = document.getElementById('themeToggle');
-    toggleBtn.addEventListener('click', () => {
+    // Toggle theme for both buttons
+    function toggleTheme() {
       const html = document.documentElement;
       const current = html.getAttribute('data-theme');
       const next = current === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
-    });
+    }
 
-    const saved = localStorage.getItem('theme');
-    if (saved) document.documentElement.setAttribute('data-theme', saved);
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('themeToggleDesktop').addEventListener('click', toggleTheme);
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
 
     // Cab occupancy
     const MAX_SEATS = 5;
@@ -195,7 +178,7 @@
 
     refreshCabStatus();
 
-    window.incrementCabOccupancy = function() {
+    window.incrementCabOccupancy = function () {
       let occupied = parseInt(localStorage.getItem('cabOccupancy')) || 0;
       if (occupied < MAX_SEATS) {
         localStorage.setItem('cabOccupancy', occupied + 1);
@@ -203,7 +186,7 @@
       }
     };
 
-    // Load username
+    // Load saved username
     const savedUsername = localStorage.getItem('username') || 'User';
     document.getElementById('userNameDisplay').textContent = savedUsername;
   </script>
