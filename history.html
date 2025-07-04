@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activity History - COBEM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    html[data-theme='dark'] body {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+    html[data-theme='dark'] .bg-white {
+      background-color: #334155;
+    }
+    .table-auto th, .table-auto td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .history-row:hover {
+      background-color: #f1f5f9;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="font-sans bg-gray-100 text-blue-900">
+
+  <div class="max-w-4xl mx-auto p-6 mt-8 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">🕘 Booking & Activity History</h1>
+
+    <table class="table-auto w-full text-left">
+      <thead class="bg-blue-700 text-white">
+        <tr>
+          <th>Service</th>
+          <th>Details</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="historyTable" class="text-sm">
+       
+      </tbody>
+    </table>
+
+    <p id="emptyNote" class="text-center text-gray-500 mt-6 hidden">No activity recorded yet.</p>
+  </div>
+
+  <script>
+    const historyTable = document.getElementById('historyTable');
+    const emptyNote = document.getElementById('emptyNote');
+
+    const historyData = JSON.parse(localStorage.getItem('cobem_history')) || [];
+
+    function renderHistory(data) {
+      if (!data.length) {
+        emptyNote.classList.remove('hidden');
+        return;
+      }
+      data.forEach((entry, index) => {
+        const row = document.createElement('tr');
+        row.classList.add('history-row');
+        row.setAttribute('data-index', index);
+        row.innerHTML = `
+          <td>${entry.service}</td>
+          <td>${entry.details}</td>
+          <td>${entry.date}</td>
+          <td>${entry.amount}</td>
+          <td class="font-semibold text-green-600">${entry.status}</td>
+        `;
+        row.addEventListener('click', () => viewTicket(entry));
+        historyTable.appendChild(row);
+      });
+    }
+
+    function viewTicket(entry) {
+      alert(`🧾 TICKET\n\nService: ${entry.service}\nDetails: ${entry.details}\nDate: ${entry.date}\nAmount: ${entry.amount}\nStatus: ${entry.status}`);
+    }
+
+    renderHistory(historyData);
+
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  </script>
+
+</body>
+</html>
+

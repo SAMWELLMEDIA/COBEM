@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luggage Storage - COBEM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    html[data-theme='dark'] body {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+    html[data-theme='dark'] .bg-white {
+      background-color: #334155;
+    }
+  </style>
+</head>
+<body class="font-sans bg-gray-100 text-blue-900">
+
+  <div class="max-w-2xl mx-auto p-6 mt-8 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">🧳 Luggage Storage Booking</h1>
+
+    <form id="storageForm" class="space-y-4">
+      <div>
+        <label class="block mb-1 font-semibold" for="fullName">Full Name</label>
+        <input type="text" id="fullName" class="w-full border border-gray-300 p-2 rounded" required>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-semibold" for="phoneNumber">Phone Number</label>
+        <input type="tel" id="phoneNumber" class="w-full border border-gray-300 p-2 rounded" required>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-semibold" for="location">Hostel / Drop-off Location</label>
+        <input type="text" id="location" class="w-full border border-gray-300 p-2 rounded" placeholder="e.g. Hall 3 Reception" required>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-semibold" for="bags">Number of Bags</label>
+        <input type="number" min="1" id="bags" class="w-full border border-gray-300 p-2 rounded" required>
+      </div>
+
+      <div>
+        <p class="font-semibold mb-1">
+          Price: <span id="storagePrice" class="text-blue-700">₦0</span> (₦500 per bag)
+        </p>
+      </div>
+
+      <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800 w-full flex items-center justify-center">
+        <i class="fas fa-box mr-2"></i>
+        Book Storage &amp; Pay
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const bagInput     = document.getElementById('bags');
+    const priceDisplay = document.getElementById('storagePrice');
+
+    
+    bagInput.addEventListener('input', () => {
+      const bags = parseInt(bagInput.value) || 0;
+      priceDisplay.textContent = `₦${(bags * 500).toLocaleString()}`;
+    });
+
+    document.getElementById('storageForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const bags     = parseInt(document.getElementById('bags').value);
+      const name     = document.getElementById('fullName').value;
+      const phone    = document.getElementById('phoneNumber').value;
+      const location = document.getElementById('location').value;
+      const total    = bags * 500;
+
+      
+      const history = JSON.parse(localStorage.getItem('cobem_history') || '[]');
+      history.push({
+        service: 'Luggage Storage',
+        details: `${bags} bag(s) at ${location}`,
+        date: new Date().toISOString().slice(0, 10),
+        amount: `₦${total.toLocaleString()}`,
+        status: 'Pending',
+        name,
+        phone
+      });
+      localStorage.setItem('cobem_history', JSON.stringify(history));
+
+      
+      const checkoutUrl = `https://test-checkout.korapay.com/pay/ID KPY35779?amount=${total}`;
+      window.location.href = checkoutUrl;
+    });
+
+   
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  </script>
+
+</body>
+</html>
+
+

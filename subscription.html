@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Run Subscription - COBEM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    html[data-theme='dark'] body {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
+    html[data-theme='dark'] .bg-white {
+      background-color: #334155;
+    }
+  </style>
+</head>
+<body class="font-sans bg-gray-100 text-blue-900">
+
+  <div class="max-w-2xl mx-auto p-6 mt-8 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">📅 School Run Subscription</h1>
+
+    <form id="subscriptionForm" class="space-y-4">
+      <div>
+        <label class="block mb-1 font-semibold">Full Name</label>
+        <input type="text" id="fullName" class="w-full border border-gray-300 p-2 rounded" required>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-semibold">Phone Number</label>
+        <input type="tel" id="phoneNumber" class="w-full border border-gray-300 p-2 rounded" required>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-semibold mt-4">Subscription Per Seat</label>
+        <div class="flex space-x-6">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="sub_type" value="seat_weekly" checked>
+            <span>Weekly (₦700)</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="sub_type" value="seat_monthly">
+            <span>Monthly (₦3,700)</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-semibold mt-4">Subscription Full Cab</label>
+        <div class="flex space-x-6">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="sub_type" value="cab_weekly">
+            <span>Weekly (₦3,750)</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="sub_type" value="cab_monthly">
+            <span>Monthly (₦15,000)</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-semibold mb-1">
+          Selected Plan: <span id="planPrice" class="text-blue-700">₦700</span>
+        </p>
+      </div>
+
+      <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800 w-full flex items-center justify-center">
+        <i class="fas fa-receipt mr-2"></i>Subscribe &amp; Proceed to Payment
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const radios        = document.querySelectorAll('input[name="sub_type"]');
+    const planText      = document.getElementById('planPrice');
+
+  
+    const prices = {
+      seat_weekly: '₦700',
+      seat_monthly: '₦3,700',
+      cab_weekly: '₦3,750',
+      cab_monthly: '₦15,000'
+    };
+    const labels = {
+      seat_weekly: 'Weekly (₦700)',
+      seat_monthly: 'Monthly (₦3,700)',
+      cab_weekly: 'Weekly (₦3,750)',
+      cab_monthly: 'Monthly (₦15,000)'
+    };
+
+ const payLinks = {
+      seat_weekly:   'https://test-checkout.korapay.com/pay/yy8TVCQ6vkgDg4J',
+      seat_monthly:  'https://test-checkout.korapay.com/pay/xGdeaj5vI7zOoLm',
+      cab_weekly:    'https://test-checkout.korapay.com/pay/xGdeaj5vI7zOo',
+      cab_monthly:   'https://test-checkout.korapay.com/pay/5yOXOiXWOxRca0t'
+    };
+
+   
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        planText.textContent = prices[radio.value];
+      });
+    });
+
+   
+    document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name  = document.getElementById('fullName').value;
+      const phone = document.getElementById('phoneNumber').value;
+      const type  = document.querySelector('input[name="sub_type"]:checked').value;
+      const price = prices[type];
+
+      
+      
+      const today = new Date();
+      const expiry = new Date(today);
+      if (type.includes('weekly')) expiry.setDate(today.getDate() + 7);
+      else expiry.setDate(today.getDate() + 30);
+
+    
+      const history = JSON.parse(localStorage.getItem('cobem_history') || '[]');
+      history.push({
+        service: 'School Run Subscription',
+        details: labels[type],
+        date: today.toISOString().slice(0,10),
+        amount: price,
+        status: 'Pending',
+        expires: expiry.toISOString().slice(0,10),
+        name, phone
+      });
+      localStorage.setItem('cobem_history', JSON.stringify(history));
+
+    
+      const link = payLinks[type];
+      if (link) window.location.href = link;
+      else alert('Payment link not configured for this plan.');
+    });
+
+ 
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  </script>
+
+</body>
+</html>
+
+

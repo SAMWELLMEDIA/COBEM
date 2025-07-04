@@ -1,0 +1,99 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help Center - Cobem Logistics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .white-shadow {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+    }
+    .bg-primary {
+      background-color: #1d4ed8;
+    }
+    .text-primary {
+      color: #fff;
+    }
+    .bg-secondary {
+      background-color: #e0f2fe;
+    }
+  </style>
+</head>
+<body class="bg-primary text-primary">
+  <div class="min-h-screen p-6 sm:p-10 md:p-20">
+   
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold white-shadow p-4 rounded-xl">Welcome to COBEM LOGISTICS Help Center</h1>
+      <p class="text-gray-200 mt-4 text-lg"> Your Reliable Partner for All Logistics and Transportation Needs!</p>
+    </div>
+
+    
+    <div class="max-w-xl mx-auto mb-12">
+      <input type="text" placeholder="Search help topics..." class="w-full p-3 rounded-xl text-black shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+    </div>
+
+  
+    <div class="space-y-6">
+      <details class="bg-[#2a2b75] white-shadow rounded-xl p-5">
+        <summary class="cursor-pointer text-xl font-semibold text-white">
+  <i class="fas fa-lock mr-2 text-blue-400"></i> Account & Security
+</summary>
+        <p class="text-gray-200 mt-3">Learn how to keep your account secure, reset passwords, and manage two-factor authentication. Always use strong passwords and never share your login details.</p>
+      </details>
+
+      <details class="bg-[#2a2b75] white-shadow rounded-xl p-5">
+       <summary class="cursor-pointer text-xl font-semibold text-white">
+  <i class="fas fa-coins mr-2 text-blue-400"></i> Payment Services
+</summary>
+        <p class="text-gray-200 mt-3">Understand our funding options, withdrawal limits, and processing times. MitheralFX supports bank transfer, crypto, and mobile money.</p>
+      </details>
+
+      <details class="bg-[#2a2b75] white-shadow rounded-xl p-5">
+        <summary class="cursor-pointer text-xl font-semibold text-white">
+  <i class="fas fa-chart-line mr-2 text-blue-400"></i> Bookings
+</summary>
+        <p class="text-gray-200 mt-3">Explore how to place trades, use indicators, and manage your open positions. Our trading tools are designed for both beginners and professionals.</p>
+      </details>
+
+     <details class="bg-[#2a2b75] white-shadow rounded-xl p-5">
+  <summary class="cursor-pointer text-xl font-semibold text-white">
+    <i class="fas fa-receipt mr-2 text-blue-400"></i> Our Services
+  </summary>
+  
+  <p class="text-gray-200 mt-3">Campus Cab Booking</p>
+  <p class="text-gray-200 mt-3">Travel Back Home</p>
+  <p class="text-gray-200 mt-3">Courier Services</p>
+  <p class="text-gray-200 mt-3">Luggage Storage</p>
+  <p class="text-gray-200 mt-3">School Run Subscription</p>
+  <p class="text-gray-200 mt-3">Other Services</p>
+</details>
+    </div>
+
+    
+    <div class="mt-20 text-center">
+      <h2 class="text-3xl font-bold mb-4">Still need help?</h2>
+      <p class="text-gray-200 mb-6">Contact our 24/7 support team for any unresolved questions or technical issues.</p>
+      <a href="mailto:support@ethereal.com" class="inline-block bg-secondary text-black font-semibold px-6 py-3 rounded-xl shadow-white hover:bg-yellow-400 transition">Contact Support</a>
+    </div>
+  </div>
+<script>
+  const searchInput = document.querySelector('input[type="text"]');
+  const helpTopics = document.querySelectorAll('details');
+
+  searchInput.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    helpTopics.forEach(topic => {
+      const summaryText = topic.querySelector('summary').textContent.toLowerCase();
+      const contentText = topic.querySelector('p').textContent.toLowerCase();
+      const match = summaryText.includes(query) || contentText.includes(query);
+      topic.style.display = match ? 'block' : 'none';
+    });
+  });
+</script>
+
+  
+</body>
+</html>
